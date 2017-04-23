@@ -16,3 +16,16 @@ How does the strategy change as the sizes of the deck and the hand are changed?
    highest card turned over so far. 
 */
 
+/*
+   Let's define a function that gives the probabililty of the max card
+   in the face down cards
+*/
+
+object CardSimulator {
+  def pmaxcarddown(decksize: Int, cardsleft: Int, cardsshown: List[Int]): Double = {
+     0.65
+  }
+}
+
+
+val thissimulator = CardSimulator() 
