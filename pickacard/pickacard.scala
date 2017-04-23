@@ -58,9 +58,12 @@ object CardSimulator {
   // the maximum, and you chose to draw another, your chance of winning becomes < 50%,
   // because even if the low card is in the face down cards, you may not identify it when it comes.
   
-  // Rule 2:  If the change of your current card being max is 50% or more, stop.
+  // Rule 2:  If the chance of your current card being max is 50% or more, stop.
   
-  // There is still room for improvement.
+  // There is still room for improvement.  But I don't know how to quantify it right now.
+  // Instead, I think we will need to simulate it, and try tuning that 50% lower 
+  
+  
   
   
 }
