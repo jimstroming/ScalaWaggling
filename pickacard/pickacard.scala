@@ -22,7 +22,7 @@ object CardSimulator {
 
 
  /* Let's define a function that gives the probabililty of the max card
-   being in the face down cards */
+   being the card we just turned over */
    
   def pmaxcardshowniterative(decksize: Int, maxcardshown: Int, numbercardsshown: Int, numbercardsfacedown: Int, p: Double): Double = {
     println(p)
@@ -33,6 +33,8 @@ object CardSimulator {
   }
    
   def pmaxcardshown(decksize: Int, numbercardsfacedown: Int, cardsshown: List[Int]): Double = {
+    val lastcard = cardsshown(cardsshown.length - 1)
+    if (lastcard != cardsshown.max) return 0.0
     val numberunshowncards = decksize - cardsshown.length
     val numberunshowncardslessthanmax = cardsshown.max - 1
     pmaxcardshowniterative(decksize, cardsshown.max, cardsshown.length, numbercardsfacedown, 1.0)                                           
@@ -63,8 +65,13 @@ object CardSimulator {
   // There is still room for improvement.  But I don't know how to quantify it right now.
   // Instead, I think we will need to simulate it, and try tuning that 50% lower 
   
+  /* returns true if we are going to draw another.  false if we are going to stop */
+  def drawanotherpercentrule(decksize: Int, cardsfaceup: List[Int], cardsfacedown: List[Int], pcutoff: Double): Boolean = {
+    val p: Double = pmaxcardshown(decksize, cardsfacedown.length: Int, cardsfaceup)
+    if (p > pcutoff) false else true
+  }
   
-  
+  /* returns true if we stopped on the maximum card we were dealt */
   def simulate(decksize: Int, cardsfaceup: List[Int], cardsfacedown: List[Int], f: (Int, List[Int], List[Int] => Boolean)): Boolean = true
   
   
