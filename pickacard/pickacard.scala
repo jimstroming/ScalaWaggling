@@ -16,16 +16,35 @@ How does the strategy change as the sizes of the deck and the hand are changed?
    highest card turned over so far. 
 */
 
-/*
-   Let's define a function that gives the probabililty of the max card
-   in the face down cards
-*/
 
 object CardSimulator {
-  def pmaxcarddown(decksize: Int, numbercardsfacedown: Int, cardsshown: List[Int]): Double = {
-     val numberunshowncards = decksize - cardsshown.length
-     val numberunshowncardsgreaterthanmax = decksize - cardsshown.max
-     numberunshowncardsgreaterthanmax.toDouble / numberunshowncards.toDouble                                            
+
+
+ /* Let's define a function that gives the probabililty of the max card
+   being in the face down cards */
+   
+  def pmaxcardshowniterative(decksize: Int, maxcardshown: Int, numbercardsshown: Int, numbercardsfacedown: Int, p: Double): Double = {
+    println(p)
+    if (numbercardsfacedown == 0) p
+    else {
+      pmaxcardshowniterative(decksize, maxcardshown, numbercardsshown + 1, numbercardsfacedown - 1,  p * ((maxcardshown - numbercardsshown).toDouble / (decksize - numbercardsshown).toDouble))
+    }
   }
+   
+  def pmaxcardshown(decksize: Int, numbercardsfacedown: Int, cardsshown: List[Int]): Double = {
+    val numberunshowncards = decksize - cardsshown.length
+    val numberunshowncardslessthanmax = cardsshown.max - 1
+    pmaxcardshowniterative(decksize, cardsshown.max, cardsshown.length, numbercardsfacedown, 1.0)                                           
+  }
+  
+  // The problem is, we have incomplete information.   
+  // The key is correctly identifying that the card you have is the max card.
+  // It is very easy to screw up.  For example
+  // (56, 30, 76,  40,  12, 60, 45, 58, 75, 14)
+  // The max came early, in the third slot.  At that point, the odds
+  // of the max .  
+  
+  
+  
 }
 
