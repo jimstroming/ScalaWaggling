@@ -65,6 +65,8 @@ object CardSimulator {
   
   
   
+  def simulate(decksize: Int, cardsfaceup: List[Int], cardsfacedown: List[Int], f: (Int, List[Int], List[Int] => Boolean)): Boolean = true
+  
   
 }
 
