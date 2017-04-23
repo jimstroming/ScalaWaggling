@@ -9,3 +9,10 @@ How does the strategy change as the sizes of the deck and the hand are changed?
 */
 
 
+/* Some things are obvious.  If your current card is not the maxium card
+   turned over so far, then you need to turn over the next card.
+   
+   The question then becomes, what do you do if the current card is the 
+   highest card turned over so far. 
+*/
+
