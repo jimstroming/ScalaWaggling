@@ -42,8 +42,8 @@ class Dealer {
 
 val dealer = new Dealer
 val rng = SimpleRNG(42)
-dealer.getHand(10, 100, rng)
-
+val (hand1, rng2) = dealer.getHand(10, 100, rng)
+val (hand2, rng3) = dealer.getHand(10, 100, rng2) 
 
 */
 
