@@ -3,6 +3,12 @@
 class HandofCardsGenerator(seed: Long) {
   //def nextHand: (Int, RNG) = {
   //  val rng = SimpleRNG(seed)
+
+  def getHand(handsize: Int, rng: RNG): (List[Int], RNG) = {
+    val (hand, simplerng) = buildHand(List(), rng, handsize)
+    (hand, simplerng)
+
+  }
     
 
   def buildHand(hand: List[Int], rng: RNG, cardsleft: Int): (List[Int], RNG) = {
@@ -19,9 +25,15 @@ class HandofCardsGenerator(seed: Long) {
       else // if it is not, add it to the hand and call buildhand again with one fewer card left 
 
         buildHand(hand:::List(newcard), rngnext, cardsleft - 1)
-
     }
+
+
   }
+
+
+
 }
 
 
+
+// val dealer = new HandofCardsGenerator
