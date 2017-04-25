@@ -1,6 +1,6 @@
 
 
-class HandofCardsGenerator {
+class Dealer {
   //def nextHand: (Int, RNG) = {
   //  val rng = SimpleRNG(seed)
 
@@ -40,7 +40,7 @@ class HandofCardsGenerator {
 
 /* 
 
-val dealer = new HandofCardsGenerator
+val dealer = new Dealer
 val rng = SimpleRNG(42)
 dealer.getHand(10, 100, rng)
 
