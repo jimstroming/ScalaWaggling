@@ -9,7 +9,17 @@ class HandofCardsGenerator(seed: Long) {
 
     if (cardsleft == 0) (hand, rng)
     else {
-      (List(1,2,3,4,5), rng)
+      
+      val (newcard, rngnext) = rng.nextInt  // generate a new card
+
+      if (hand.contains(newcard)) // check if it is already in the hand
+
+        buildHand(hand, rngnext, cardsleft) // if it is, call buildhand again
+
+      else // if it is not, add it to the hand and call buildhand again with one fewer card left 
+
+        buildHand(hand:::List(newcard), rngnext, cardsleft - 1)
+
     }
   }
 }
