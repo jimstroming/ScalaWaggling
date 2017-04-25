@@ -1,6 +1,6 @@
 
 
-class HandofCardsGenerator(seed: Long) {
+class HandofCardsGenerator {
   //def nextHand: (Int, RNG) = {
   //  val rng = SimpleRNG(seed)
 
