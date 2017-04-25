@@ -11,3 +11,17 @@ case class SimpleRNG(seed: Long) extends RNG {
 }
 
 
+/* Usage
+
+scala> val rng = SimpleRNG(42)
+rng: SimpleRNG = SimpleRNG(42)
+
+scala> val (n1, rng2) = rng.nextInt
+n1: Int = 16159453
+rng2: RNG = SimpleRNG(1059025964525)
+
+scala> val (n2, rng3) = rng2.nextInt
+n1: Int = -1281479697
+rng3: RNG = SimpleRNG(197491923327988)
+
+*/
