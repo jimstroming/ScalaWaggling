@@ -42,7 +42,7 @@ class HandofCardsGenerator {
 
 val dealer = new HandofCardsGenerator
 val rng = SimpleRNG(42)
-dealer.getHand(100, rng)
+dealer.getHand(10, 100, rng)
 
 
 */
