@@ -1,8 +1,6 @@
 
 
 class Dealer {
-  //def nextHand: (Int, RNG) = {
-  //  val rng = SimpleRNG(seed)
 
   def getHand(handsize: Int, decksize: Int, rng: RNG): (List[Int], RNG) = {
     val (hand, simplerng) = buildHand(List(), rng, handsize, decksize)
