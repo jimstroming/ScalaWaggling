@@ -72,21 +72,47 @@ object CardSimulator {
   }
   
   /* returns true if we stopped on the maximum card we were dealt */
-  def simulate(decksize: Int, cardsfaceup: List[Int], cardsfacedown: List[Int], f: (Int, List[Int], List[Int], Double) => Boolean): Boolean = {
-    if (cardsfacedown.length != 0 && f(decksize, cardsfaceup, cardsfacedown, 0.5)) {
-      println("Turning over another card")
-      val newcardsfaceup =   cardsfaceup ::: List(cardsfacedown(0))
-      val newcardsfacedown = cardsfacedown.drop(1)
-      simulate(decksize, newcardsfaceup,  newcardsfacedown, f(_,_,_,_))
-    }
-    else {
-      val lastcard = cardsfaceup(cardsfaceup.length - 1)
-      val allcards = cardsfaceup:::cardsfacedown
-      if (lastcard == allcards.max) true else false
-    }
-  } 
+  def simulate(decksize: Int, cardsfaceup: List[Int], cardsfacedown: List[Int], f: (Int, List[Int], List[Int], Double) => Boolean):
+    Boolean = {
+      if (cardsfacedown.length != 0 && f(decksize, cardsfaceup, cardsfacedown, 0.5)) {
+        println("Turning over another card")
+        val newcardsfaceup =   cardsfaceup ::: List(cardsfacedown(0))
+        val newcardsfacedown = cardsfacedown.drop(1)
+        simulate(decksize, newcardsfaceup,  newcardsfacedown, f(_,_,_,_))
+      }
+      else {
+        val lastcard = cardsfaceup(cardsfaceup.length - 1)
+        val allcards = cardsfaceup:::cardsfacedown
+        if (lastcard == allcards.max) true else false
+      }
+    } 
 
-// simulate(100, List(50), List(1,2,3,4,5,60,7,8,9), drawanotherpercentrule(_,_,_,_))  
-   
+   // simulate(100, List(50), List(1,2,3,4,5,60,7,8,9), drawanotherpercentrule(_,_,_,_))  
+
+   def runsimulations(decksize: Int, handsize: Int, numberofhands: Int, f: (Int, List[Int], List[Int], Double) => Boolean, 
+                                      rng: RNG, wins: Int, losses: Int): (Int, Int, RNG) = {
+     if (numberofhands == 0) (wins, losses, rng)
+     else {
+       val dealer = new Dealer
+       val (hand, newrng) = dealer.getHand(handsize, decksize, rng)
+       val faceup = List(hand(0))
+       val facedown = hand.drop(1)
+       if (simulate(decksize, faceup, facedown, f))
+         runsimulations(decksize, handsize, numberofhands - 1, f, newrng, wins + 1, losses)
+       else {
+         runsimulations(decksize, handsize, numberofhands - 1, f, newrng, wins, losses + 1)
+       }
+       
+
+     }    
+  }
+
 }
+
+/*
+
+  val sim = CardSimulator
+
+
+*/ 
 
