@@ -83,7 +83,16 @@ object CardSimulator {
       else {
         val lastcard = cardsfaceup(cardsfaceup.length - 1)
         val allcards = cardsfaceup:::cardsfacedown
-        if (lastcard == allcards.max) true else false
+        println(allcards)
+        println(lastcard)
+        if (lastcard == allcards.max) {
+          println("Win")
+          true
+        } 
+        else {
+          println("Lose") 
+          false
+        }
       }
     } 
 
@@ -112,7 +121,7 @@ object CardSimulator {
 /*
 
   val sim = CardSimulator
-
+  sim.runsimulations(100, 10, 5, drawanotherpercentrule(_,_,_,_), SimpleRNG(23), 0, 0)
 
 */ 
 
