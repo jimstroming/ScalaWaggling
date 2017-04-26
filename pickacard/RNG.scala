@@ -1,3 +1,10 @@
+package com.cardriddler
+
+package RNG
+
+
+
+
 // Let's use the random number generator from Functional Programming in Scala 
 // by by Paul Chiusano and Runar Bjarnason
 

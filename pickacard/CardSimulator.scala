@@ -1,3 +1,11 @@
+package com.cardriddler
+
+package simulator
+
+import RNG.RNG
+import simpleRNG.SimpleRNG
+import dealer.Dealer
+
 /* From a shuffled deck of 100 cards that are numbered 1 to 100, you are dealt 10
   cards face down. You turn the cards over one by one. After each card, you must
   decide whether to end the game. If you end the game on the highest card in the
@@ -114,6 +122,16 @@ object CardSimulator {
        
 
      }    
+  }
+
+  def main(args: Array[String]): Unit = {
+
+   val sim = CardSimulator
+   val (wins, losses, rng) = sim.runsimulations(100, 10, 5, drawanotherpercentrule(_,_,_,_), SimpleRNG(23), 0, 0)
+   println(wins)
+   println(losses)
+   
+
   }
 
 }

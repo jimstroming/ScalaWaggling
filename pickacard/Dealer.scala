@@ -1,3 +1,9 @@
+package com.cardriddler
+
+package dealer
+
+import RNG.RNG
+import simpleRNG.SimpleRNG
 
 
 class Dealer {
