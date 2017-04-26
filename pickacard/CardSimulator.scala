@@ -33,7 +33,7 @@ object CardSimulator {
    being the card we just turned over */
    
   def pmaxcardshowniterative(decksize: Int, maxcardshown: Int, numbercardsshown: Int, numbercardsfacedown: Int, p: Double): Double = {
-    println(p)
+    // println(p)
     if (numbercardsfacedown == 0) p
     else {
       pmaxcardshowniterative(decksize, maxcardshown, numbercardsshown + 1, numbercardsfacedown - 1,  p * ((maxcardshown - numbercardsshown).toDouble / (decksize - numbercardsshown).toDouble))
@@ -71,7 +71,8 @@ object CardSimulator {
   // Rule 2:  If the chance of your current card being max is 50% or more, stop.
   
   // There is still room for improvement.  But I don't know how to quantify it right now.
-  // Instead, I think we will need to simulate it, and try tuning that 50% lower 
+  // Instead, I think we will need to simulate it, and try tuning that 50% lower to account for 
+  // the fact we can not perfectly identify the max.
   
   /* returns true if we are going to draw another.  false if we are going to stop */
   def drawanotherpercentrule(decksize: Int, cardsfaceup: List[Int], cardsfacedown: List[Int], pcutoff: Double): Boolean = {
@@ -82,8 +83,8 @@ object CardSimulator {
   /* returns true if we stopped on the maximum card we were dealt */
   def simulate(decksize: Int, cardsfaceup: List[Int], cardsfacedown: List[Int], f: (Int, List[Int], List[Int], Double) => Boolean):
     Boolean = {
-      if (cardsfacedown.length != 0 && f(decksize, cardsfaceup, cardsfacedown, 0.1)) {
-        println("Turning over another card")
+      if (cardsfacedown.length != 0 && f(decksize, cardsfaceup, cardsfacedown, 0.46)) {
+        //println("Turning over another card")
         val newcardsfaceup =   cardsfaceup ::: List(cardsfacedown(0))
         val newcardsfacedown = cardsfacedown.drop(1)
         simulate(decksize, newcardsfaceup,  newcardsfacedown, f(_,_,_,_))
@@ -91,14 +92,14 @@ object CardSimulator {
       else {
         val lastcard = cardsfaceup(cardsfaceup.length - 1)
         val allcards = cardsfaceup:::cardsfacedown
-        println(allcards)
-        println(lastcard)
+        //println(allcards)
+        //println(lastcard)
         if (lastcard == allcards.max) {
-          println("Win")
+          //println("Win")
           true
         } 
         else {
-          println("Lose") 
+          //println("Lose") 
           false
         }
       }
@@ -127,7 +128,7 @@ object CardSimulator {
   def main(args: Array[String]): Unit = {
 
    val sim = CardSimulator
-   val (wins, losses, rng) = sim.runsimulations(100, 10, 10000, drawanotherpercentrule(_,_,_,_), SimpleRNG(27), 0, 0)
+   val (wins, losses, rng) = sim.runsimulations(100, 10, 100000000, drawanotherpercentrule(_,_,_,_), SimpleRNG(31), 0, 0)
    println("Total Wins = " + wins)
    println("Total Loss = " + losses)
    
@@ -172,6 +173,24 @@ With cutoff = 40%, seed = 26
 Total Wins = 61698
 Total Loss = 38302
 
+-------------
+
+With cutoff = 30%, seed = 27
+Total Wins = 5821
+Total Loss = 4179
+
+With cutoff = 40%, seed = 27
+Total Wins = 6054
+Total Loss = 3946
+
+With cutoff = 60%, seed = 27
+Total Wins = 5967
+Total Loss = 4033
+
+With cutoff = 10%, seed = 27
+Total Wins = 4512
+Total Loss = 5488
+
 --------------------
 
 With cutoff = 50%, seed = 27
@@ -189,6 +208,8 @@ Total Loss = 37881
 With cutoff = 47%, seed = 27
 Total Wins = 62270
 Total Loss = 37730
+
+With cutoff = 46%, seed = 27
 
 -------------------
 
@@ -212,23 +233,40 @@ With cutoff = 45%, seed = 27
 Total Wins = 620963
 Total Loss = 379037
 
---------------
+With cutoff = 48%, seed = 27
+Total Wins = 620863
+Total Loss = 379137
 
-With cutoff = 30%, seed = 27
-Total Wins = 5821
-Total Loss = 4179
+With cutoff = 46%, seed = 27
+Total Wins = 621144
+Total Loss = 378856
 
-With cutoff = 40%, seed = 27
-Total Wins = 6054
-Total Loss = 3946
+---------------
 
-With cutoff = 60%, seed = 27
-Total Wins = 5967
-Total Loss = 4033
+With cutoff = 46%, seed = 30
+Total Wins = 6217189
+Total Loss = 3782811
 
-With cutoff = 10%, seed = 27
-Total Wins = 4512
-Total Loss = 5488
+With cutoff = 47%, seed = 30
+Total Wins = 6217400
+Total Loss = 3782600
+
+With cutoff = 48%, seed = 30
+Total Wins = 6214532
+Total Loss = 3785468
+
+---------
+
+With cutoff = 46%, seed = 31
+
+
+With cutoff = 47%, seed = 31
+
+With cutoff = 48%, seed = 31
+
+-----------
+
+
 
 */
 
