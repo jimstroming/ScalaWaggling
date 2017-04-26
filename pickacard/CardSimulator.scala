@@ -83,7 +83,7 @@ object CardSimulator {
   /* returns true if we stopped on the maximum card we were dealt */
   def simulate(decksize: Int, cardsfaceup: List[Int], cardsfacedown: List[Int], f: (Int, List[Int], List[Int], Double) => Boolean):
     Boolean = {
-      if (cardsfacedown.length != 0 && f(decksize, cardsfaceup, cardsfacedown, 0.46)) {
+      if (cardsfacedown.length != 0 && f(decksize, cardsfaceup, cardsfacedown, 0.47)) {
         //println("Turning over another card")
         val newcardsfaceup =   cardsfaceup ::: List(cardsfacedown(0))
         val newcardsfacedown = cardsfacedown.drop(1)
@@ -128,7 +128,7 @@ object CardSimulator {
   def main(args: Array[String]): Unit = {
 
    val sim = CardSimulator
-   val (wins, losses, rng) = sim.runsimulations(100, 10, 100000000, drawanotherpercentrule(_,_,_,_), SimpleRNG(31), 0, 0)
+   val (wins, losses, rng) = sim.runsimulations(100, 10, 100000000, drawanotherpercentrule(_,_,_,_), SimpleRNG(32), 0, 0)
    println("Total Wins = " + wins)
    println("Total Loss = " + losses)
    
@@ -258,15 +258,27 @@ Total Loss = 3785468
 ---------
 
 With cutoff = 46%, seed = 31
-
+Total Wins = 62189918
+Total Loss = 37810082
 
 With cutoff = 47%, seed = 31
+Total Wins = 62190761
+Total Loss = 37809239
 
 With cutoff = 48%, seed = 31
+Total Wins = 62167159
+Total Loss = 37832841
 
 -----------
 
+With cutoff = 47%, seed = 32
+Total Wins = 62182610
+Total Loss = 37817390
 
+-----------
+
+So this is my solution:  Keep drawing cards until you get to a card that has a 47% or greater chance of being the high card.
+This gives you a 62% chance of victory.
 
 */
 
