@@ -82,7 +82,7 @@ object CardSimulator {
   /* returns true if we stopped on the maximum card we were dealt */
   def simulate(decksize: Int, cardsfaceup: List[Int], cardsfacedown: List[Int], f: (Int, List[Int], List[Int], Double) => Boolean):
     Boolean = {
-      if (cardsfacedown.length != 0 && f(decksize, cardsfaceup, cardsfacedown, 0.45)) {
+      if (cardsfacedown.length != 0 && f(decksize, cardsfaceup, cardsfacedown, 0.1)) {
         println("Turning over another card")
         val newcardsfaceup =   cardsfaceup ::: List(cardsfacedown(0))
         val newcardsfacedown = cardsfacedown.drop(1)
@@ -127,7 +127,7 @@ object CardSimulator {
   def main(args: Array[String]): Unit = {
 
    val sim = CardSimulator
-   val (wins, losses, rng) = sim.runsimulations(100, 10, 100000, drawanotherpercentrule(_,_,_,_), SimpleRNG(27), 0, 0)
+   val (wins, losses, rng) = sim.runsimulations(100, 10, 10000, drawanotherpercentrule(_,_,_,_), SimpleRNG(27), 0, 0)
    println("Total Wins = " + wins)
    println("Total Loss = " + losses)
    
@@ -172,6 +172,8 @@ With cutoff = 40%, seed = 26
 Total Wins = 61698
 Total Loss = 38302
 
+--------------------
+
 With cutoff = 50%, seed = 27
 Total Wins = 62066
 Total Loss = 37934
@@ -180,6 +182,53 @@ With cutoff = 45%, seed = 27
 Total Wins = 62211
 Total Loss = 37789
 
+With cutoff = 43%, seed = 27
+Total Wins = 62119
+Total Loss = 37881
+
+With cutoff = 47%, seed = 27
+Total Wins = 62270
+Total Loss = 37730
+
+-------------------
+
+With cutoff = 47%, seed = 27
+Total Wins = 621206
+Total Loss = 378794
+
+With cutoff = 47%, seed = 28
+Total Wins = 621206
+Total Loss = 378794
+
+With cutoff = 50%, seed = 27
+Total Wins = 619604
+Total Loss = 380396
+
+With cutoff = 50%, seed = 28
+Total Wins = 620164
+Total Loss = 379836
+
+With cutoff = 45%, seed = 27
+Total Wins = 620963
+Total Loss = 379037
+
+--------------
+
+With cutoff = 30%, seed = 27
+Total Wins = 5821
+Total Loss = 4179
+
+With cutoff = 40%, seed = 27
+Total Wins = 6054
+Total Loss = 3946
+
+With cutoff = 60%, seed = 27
+Total Wins = 5967
+Total Loss = 4033
+
+With cutoff = 10%, seed = 27
+Total Wins = 4512
+Total Loss = 5488
 
 */
 
