@@ -82,7 +82,7 @@ object CardSimulator {
   /* returns true if we stopped on the maximum card we were dealt */
   def simulate(decksize: Int, cardsfaceup: List[Int], cardsfacedown: List[Int], f: (Int, List[Int], List[Int], Double) => Boolean):
     Boolean = {
-      if (cardsfacedown.length != 0 && f(decksize, cardsfaceup, cardsfacedown, 0.5)) {
+      if (cardsfacedown.length != 0 && f(decksize, cardsfaceup, cardsfacedown, 0.45)) {
         println("Turning over another card")
         val newcardsfaceup =   cardsfaceup ::: List(cardsfacedown(0))
         val newcardsfacedown = cardsfacedown.drop(1)
@@ -127,19 +127,59 @@ object CardSimulator {
   def main(args: Array[String]): Unit = {
 
    val sim = CardSimulator
-   val (wins, losses, rng) = sim.runsimulations(100, 10, 5, drawanotherpercentrule(_,_,_,_), SimpleRNG(23), 0, 0)
-   println(wins)
-   println(losses)
+   val (wins, losses, rng) = sim.runsimulations(100, 10, 100000, drawanotherpercentrule(_,_,_,_), SimpleRNG(27), 0, 0)
+   println("Total Wins = " + wins)
+   println("Total Loss = " + losses)
    
-
   }
 
 }
 
 /*
 
+  command line:
+ 
   val sim = CardSimulator
   sim.runsimulations(100, 10, 5, drawanotherpercentrule(_,_,_,_), SimpleRNG(23), 0, 0)
 
+
+  package:
+
+  scala com.cardriddler.simulator.CardSimulator
+  
+
 */ 
+
+/* Results:
+
+With cutoff = 50%, seed = 26
+Total Wins = 62099
+Total Loss = 37901
+
+With cutoff = 45%, seed = 26
+Total Wins = 62224
+Total Loss = 37776
+
+With cutoff = 30%, seed = 26
+Total Wins = 59356
+Total Loss = 40644
+
+With cutoff = 55%, seed = 26
+Total Wins = 61338
+Total Loss = 38662
+
+With cutoff = 40%, seed = 26
+Total Wins = 61698
+Total Loss = 38302
+
+With cutoff = 50%, seed = 27
+Total Wins = 62066
+Total Loss = 37934
+
+With cutoff = 45%, seed = 27
+Total Wins = 62211
+Total Loss = 37789
+
+
+*/
 
