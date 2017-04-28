@@ -7,7 +7,11 @@ import simpleRNG.SimpleRNG
 import dealer.Dealer
 import percentrule.PercentRule
 
-/* From a shuffled deck of 100 cards that are numbered 1 to 100, you are dealt 10
+/* 
+  The April 21, 2017 FiveThirtyEight Riddler
+  https://fivethirtyeight.com/features/pick-a-card-any-card/
+
+  From a shuffled deck of 100 cards that are numbered 1 to 100, you are dealt 10
   cards face down. You turn the cards over one by one. After each card, you must
   decide whether to end the game. If you end the game on the highest card in the
   hand you were dealt, you win; otherwise, you lose.
