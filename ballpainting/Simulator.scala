@@ -100,3 +100,38 @@ import bagofballs.BagOfBalls
        -> RRRB 1/2
  
 */
+
+/*
+  Now that we have the probability of transitioning between the states, we can 
+  use the probabilities to calculate the average number of turns required to 
+  get between the states.
+
+  The shortest path is from high card -> one pair -> three of a kind -> four of a kind
+  So the shortest path is 3 turns.  And, in fact, all solutions have to go through
+  these four states. 
+
+  The outlier state if two pair, since there are solutions that don't pass through it.
+  Once in two pair, the desired path is to go to three of a kind, though once there
+  you may bounce back to two pair on your next turn.
+
+  Let's start by calculating the average number of turns to get from 
+  two pair to three of a kind.
+
+  In two pair, we have to 2/3 change of going to three of a kind, and 
+  a 1/3 chance of staying in two pair, so
+
+  avg turns = 1 + 1/3(1 + 1/3(1 + 1/3 ...
+
+  This is an infinite sequence
+
+  avg turns = 1 + 1/3 + 1/9 + 1/27 + ...
+            = 1 + sum(n from 1 to infinity) (1/3)^n 
+            = 1 +  (1/3)/(1-(1/3)) = 1 + 1/2 
+            = 3/2
+
+  So, it takes an average of 1.5 turns to go from two pair to three of a kind.
+
+  
+
+
+/*
