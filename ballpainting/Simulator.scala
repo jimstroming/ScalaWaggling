@@ -126,12 +126,36 @@ import bagofballs.BagOfBalls
 
   avg turns = 1 + 1/3 + 1/9 + 1/27 + ...
             = 1 + sum(n from 1 to infinity) (1/3)^n 
-            = 1 +  (1/3)/(1-(1/3)) = 1 + 1/2 
-            = 3/2
+            = 1 +  (1/3)/(1-(1/3)) = 1 + 1/2 = 3/2
+
+  avg turns(RRBB -> RRRB) = 3/2
+
 
   So, it takes an average of 1.5 turns to go from two pair to three of a kind.
 
   
+  Now we need to calculate the average number of steps for the other state transitions.
+
+  The first transition is the easiest.  High card to two pair is the only possible path, so
+
+  avg turns(RGBY -> RRBG) = 1
+
+  The second transition is from two pair to three of a kind.  There are two paths
+  to get to three of a kind:  we can go straight there, or we can detour through two pair.
+  We can also, of course, spend a turn stuck in two pair
+
+  avg turns = 1 + (1/6)(avg turns from RRBB -> RRRB) + (1/2)[1 + (1/6)(avg turns ...
+
+  Another infinite series, but we already calculated that avg turns(RRBB -> RRRB) = 3/2
+
+  so, 
+  avg turns = 1 + (1/6)(3/2) + (1/2)[1 + (1/6)(3/2) ...
+            = 1 + (1/4) + (1/2)[1 + (1/4) + (1/2)[...
+            = 5/4 + 5/8 + 5/16 + ...
+            = (5/2)sum(n from 1 to infinity) (1/2)^n
+            = (5/2)(1) = 5/2 
+
+  So, 2.5 turns, on average to get from one pair to three of a kind.
 
 
 /*
