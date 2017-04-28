@@ -5,6 +5,7 @@ package simulator
 import RNG.RNG
 import simpleRNG.SimpleRNG
 import dealer.Dealer
+import percentrule.PercentRule
 
 /* From a shuffled deck of 100 cards that are numbered 1 to 100, you are dealt 10
   cards face down. You turn the cards over one by one. After each card, you must
@@ -29,25 +30,6 @@ How does the strategy change as the sizes of the deck and the hand are changed?
 object CardSimulator {
 
 
- /* Let's define a function that gives the probabililty of the max card
-   being the card we just turned over */
-   
-  def pmaxcardshowniterative(decksize: Int, maxcardshown: Int, numbercardsshown: Int, numbercardsfacedown: Int, p: Double): Double = {
-    // println(p)
-    if (numbercardsfacedown == 0) p
-    else {
-      pmaxcardshowniterative(decksize, maxcardshown, numbercardsshown + 1, numbercardsfacedown - 1,  p * ((maxcardshown - numbercardsshown).toDouble / (decksize - numbercardsshown).toDouble))
-    }
-  }
-   
-  def pmaxcardshown(decksize: Int, numbercardsfacedown: Int, cardsshown: List[Int]): Double = {
-    val lastcard = cardsshown(cardsshown.length - 1)
-    if (lastcard != cardsshown.max) return 0.0
-    val numberunshowncards = decksize - cardsshown.length
-    val numberunshowncardslessthanmax = cardsshown.max - 1
-    pmaxcardshowniterative(decksize, cardsshown.max, cardsshown.length, numbercardsfacedown, 1.0)                                           
-  }
-  
   // The problem is, we have incomplete information.   
   // The key is correctly identifying that the card you have is the max card.
   // It is very easy to screw up.  For example
@@ -74,13 +56,8 @@ object CardSimulator {
   // Instead, I think we will need to simulate it, and try tuning that 50% lower to account for 
   // the fact we can not perfectly identify the max.
   
-  /* returns true if we are going to draw another.  false if we are going to stop */
-  def drawanotherpercentrule(decksize: Int, cardsfaceup: List[Int], cardsfacedown: List[Int], pcutoff: Double): Boolean = {
-    val p: Double = pmaxcardshown(decksize, cardsfacedown.length: Int, cardsfaceup)
-    if (p > pcutoff) false else true
-  }
-  
   /* returns true if we stopped on the maximum card we were dealt */
+
   def simulate(decksize: Int, cardsfaceup: List[Int], cardsfacedown: List[Int], f: (Int, List[Int], List[Int], Double) => Boolean):
     Boolean = {
       if (cardsfacedown.length != 0 && f(decksize, cardsfaceup, cardsfacedown, 0.47)) {
@@ -127,8 +104,9 @@ object CardSimulator {
 
   def main(args: Array[String]): Unit = {
 
+   val pr = new PercentRule()
    val sim = CardSimulator
-   val (wins, losses, rng) = sim.runsimulations(100, 10, 100000000, drawanotherpercentrule(_,_,_,_), SimpleRNG(32), 0, 0)
+   val (wins, losses, rng) = sim.runsimulations(100, 10, 10000, pr.drawanotherpercentrule(_,_,_,_), SimpleRNG(32), 0, 0)
    println("Total Wins = " + wins)
    println("Total Loss = " + losses)
    
