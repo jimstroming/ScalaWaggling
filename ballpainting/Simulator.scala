@@ -169,11 +169,11 @@ import bagofballs.BagOfBalls
 
   So, the total expected turns is the sum of the four steps.
 
-  avg turns = 1 + 3/2 + 5/2 + 11/4
-            = (4 + 6 + 10 + 11)/4 
-            = 31/4   = 7.75 turns
+  avg turns = 1 + 5/2 + 11/4
+            = (4 + 10 + 11)/4 
+            = 25/4   = 6.25 turns
 
-  So 7.75 turns, on average, to win the game is what we find analytically.
+  So 6.25 turns, on average, to win the game is what we find analytically.
  
   Let's see how this compares to the scala simulation.
 
