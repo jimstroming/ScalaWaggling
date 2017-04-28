@@ -2,7 +2,7 @@ package com.cardriddler
 
 package probcalculator
 
-object ProbCalculator {
+class ProbCalculator {
 
  /* Let's define a function that gives the probabililty of the max card
    being the card we just turned over */
