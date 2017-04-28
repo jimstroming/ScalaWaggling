@@ -20,3 +20,27 @@ import bagofballs.BagOfBalls
   What is the expected number of turns to finish the game?
 
 */
+
+/* 
+
+  There are only a fixed number of states.  One good way to think of the problem is in 
+  terms of poker hands.  
+
+  The initial state, RBGY, is high card
+  After the first turn, one of the colors will go away,
+  so you transition to a pair,   RRBG.
+  
+  There are a total of five states.
+
+  RBGY - high card
+  RRBG - one pair
+  RRBB - two pari 
+  RRRB - three of a kind
+  RRRR - four of a kind
+
+  The object, then, is to get from high card to four of a kind.
+
+
+
+
+*/
