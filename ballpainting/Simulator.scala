@@ -177,7 +177,16 @@ import bagofballs.BagOfBalls
  
   Let's see how this compares to the scala simulation.
 
+*/
+
+object BallSimulator {
+
+
+  def checkifdone(bag: List[Int]): Boolean = bag.forall(_ == bag.head) 
 
 
 
-/*
+}
+
+
+
