@@ -182,9 +182,14 @@ import bagofballs.BagOfBalls
 object BallSimulator {
 
 
-  def checkifdone(bag: List[Int]): Boolean = bag.forall(_ == bag.head) 
-
-
+  def pulltwoandpaint(bag: BagOfBalls, bagin: List[Int], rng: RNG): (List[Int], RNG) = {
+    val (firstball,  bag2, rng2)  = bag.pullball(bagin, rng) // pull the first ball
+    val (secondball, bag3, rng3)  = bag.pullball(bag2, rng2) // pull the second ball
+    // return the first ball twice to simulate paining
+    val bag4 = bag.pushball(bag3, firstball)
+    val bag5 = bag.pushball(bag4, firstball)
+    (bag5, rng3)
+  }
 
 }
 

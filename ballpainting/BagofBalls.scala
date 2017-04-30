@@ -25,6 +25,7 @@ class BagOfBalls(colors: Int) {
 
   def pushball(bag: List[Int], ball: Int): List[Int] = bag ::: List(ball)
   
+  def checkifallonecolor(bag: List[Int]): Boolean = bag.forall(_ == bag.head) 
 }
 
 
