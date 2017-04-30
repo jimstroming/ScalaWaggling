@@ -182,14 +182,28 @@ import bagofballs.BagOfBalls
 object BallSimulator {
 
 
-  def pulltwoandpaint(bag: BagOfBalls, bagin: List[Int], rng: RNG): (List[Int], RNG) = {
-    val (firstball,  bag2, rng2)  = bag.pullball(bagin, rng) // pull the first ball
-    val (secondball, bag3, rng3)  = bag.pullball(bag2, rng2) // pull the second ball
-    // return the first ball twice to simulate paining
-    val bag4 = bag.pushball(bag3, firstball)
-    val bag5 = bag.pushball(bag4, firstball)
-    (bag5, rng3)
+  def paintuntildone(bag: BagOfBalls, bagcontents: List[Int], rng: RNG, n: Int): Int = {
+    println("paintuntildone "+n)
+    val (newcontents, newrng) = bag.pulltwoandpaint(bagcontents, rng)
+    if (!bag.checkifallonecolor(newcontents))
+      paintuntildone(bag, newcontents, newrng, n+1)
+    else n+1
   }
+
+  def simulate(numberofballs: Int, seed: Int): Int = {
+    val rng = SimpleRNG(seed)
+    val bag = new BagOfBalls(numberofballs)
+    val contents = bag.fillbagoneofeach
+    paintuntildone(bag, contents, rng, 0)
+  }
+
+  def main(args: Array[String]): Unit = {
+    
+    val n = simulate(4, 58)
+    println(n)
+
+  }
+
 
 }
 
