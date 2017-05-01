@@ -159,21 +159,24 @@ import bagofballs.BagOfBalls
 
   One we get to three of a kind, we are almost there
   We have 1/4 chance of getting four of a kind, a 1/2 chance of staying at three of a kind,
-  and a 1/4 chance of going to two pair.  
+  and a 1/4 chance of going to two pair.  We know from earlier that it will take us 3/2 turns
+  to get back from two pair to three of a kind.  
 
   so, 
-  avg turns = 1 + (1/4)(3/2) + 1/2[(1 + (1/4)(3/2) + 1/2[...
-            = (11/8) + 1/2[(11/8) + 1/2[...
-            = (11/4)sum(n from 1 to infinity)(1/2)^n
-            = 11/4
+  avg turns = 1 + (1/2)[x] + (1/4)[(3/2) + x]   where x = 1 + (1/2)[x] + (1/4)[(3/2) + x]
+            = 1 + (3/8) + (3/4)[1 + (3/8) + (3/4)[...
+            = (11/8) + (3/4)[11/8 + (3/4)[(11/8) + ...
+            = (11/8) + (11/8)sum(n = 1 to infinity of (3/4)^n) 
+            = (11/8) + (11/8)(3/4)/(1-3/4) = (11/8) + (11/8)(3)
+            = 44/8 = 11/2
 
   So, the total expected turns is the sum of the four steps.
 
-  avg turns = 1 + 5/2 + 11/4
-            = (4 + 10 + 11)/4 
-            = 25/4   = 6.25 turns
+  avg turns = 1 + 5/2 + 11/2
+            = (2 + 5 + 11)/2 
+            = 18/2   = 9 turns
 
-  So 6.25 turns, on average, to win the game is what we find analytically.
+  So 9 turns, on average, to win the game is what we find analytically.
  
   Let's see how this compares to the scala simulation.
 
