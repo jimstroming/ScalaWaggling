@@ -182,24 +182,32 @@ import bagofballs.BagOfBalls
 object BallSimulator {
 
 
-  def paintuntildone(bag: BagOfBalls, bagcontents: List[Int], rng: RNG, n: Int): Int = {
+  def paintuntildone(bag: BagOfBalls, bagcontents: List[Int], rng: RNG, n: Int): (Int, RNG) = {
     println("paintuntildone "+n)
     val (newcontents, newrng) = bag.pulltwoandpaint(bagcontents, rng)
     if (!bag.checkifallonecolor(newcontents))
       paintuntildone(bag, newcontents, newrng, n+1)
-    else n+1
+    else (n+1, newrng)
   }
 
-  def simulate(numberofballs: Int, seed: Int): Int = {
-    val rng = SimpleRNG(seed)
+  def simulate(numberofballs: Int, rng: RNG): (Int, RNG) = {
     val bag = new BagOfBalls(numberofballs)
     val contents = bag.fillbagoneofeach
     paintuntildone(bag, contents, rng, 0)
   }
 
+  def simulatemany(numberofballs: Int, rng: RNG, remaining: Int, totalsteps: Int = 0, executed: Int = 0) : Double = {
+    if (remaining == 0)
+      totalsteps.toDouble / executed.toDouble
+    else {
+      val (steps, newrng) = simulate(numberofballs, rng)
+      simulatemany(numberofballs, newrng, remaining - 1, totalsteps + steps, executed + 1)  
+    }        
+  }
+
   def main(args: Array[String]): Unit = {
     
-    val n = simulate(4, 58)
+    val n = simulatemany(4, SimpleRNG(60), 100000)
     println(n)
 
   }
