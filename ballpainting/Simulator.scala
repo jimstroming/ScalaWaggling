@@ -210,13 +210,23 @@ object BallSimulator {
 
   def main(args: Array[String]): Unit = {
     
-    val n = simulatemany(4, SimpleRNG(60), 100000)
+    val n = simulatemany(4, SimpleRNG(61), 100000)
     println(n)
 
   }
 
-
 }
 
+/* Let's run it with a few different seeds and see how it works
+
+  simulatemany(4, SimpleRNG(60), 100000)
+  8.9874
+
+  simulatemany(4, SimpleRNG(61), 100000)
+  9.00927
+
+  Confirms our analysis that it would take an average of 9 turns.
+
+*/
 
 
