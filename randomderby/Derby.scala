@@ -45,7 +45,8 @@ object Derby {
   def incrementwinlist(wins: List[Int], newwinners: List[Int]): List[Int] = {
     if (newwinners.length == 0) wins
     else {
-      val newwins = wins.updated(newwinners.head, wins(newwinners.head + 1))
+      // println(wins, newwinners, newwinners.head, newwinners.tail)
+      val newwins = wins.updated(newwinners.head, wins(newwinners.head) + 1)
       incrementwinlist(newwins, newwinners.tail)
     }
   }
@@ -54,6 +55,7 @@ object Derby {
     
     if (n == 0) (win, rng)
     else {
+      println(win)
       val winners = fillzeroes(horses, win)
       val (roundwinners, rng2) = race(horses, finishdist, rng)
       val newwinlist = incrementwinlist(winners, roundwinners)
@@ -64,9 +66,9 @@ object Derby {
 
   def main(args: Array[String]): Unit = {
     
-    val horses = List(new Horse(0.2), new Horse(0.9))
+    val horses = List(new Horse(0.9), new Horse(0.9), new Horse(0.9))
     // val (winners, newrng) = race(horses, 2000, SimpleRNG(60))
-    val (winners, newrng) = runraces(horses, 2000, SimpleRNG(60), 1000)
+    val (winners, newrng) = runraces(horses, 2000, SimpleRNG(60), 100000)
     println(winners)
 
   }
