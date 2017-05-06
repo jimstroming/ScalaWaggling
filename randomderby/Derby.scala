@@ -42,5 +42,16 @@ object Derby {
 
   }
 
+
+  def main(args: Array[String]): Unit = {
+    
+    val horses = List(new Horse(0.9), new Horse(0.8))
+    val winners = race(horses, 2000, SimpleRNG(61))
+    println(winners)
+
+  }
+
+
+
 }
 
