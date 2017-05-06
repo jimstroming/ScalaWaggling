@@ -1,4 +1,4 @@
-package randomderby
+package com.randomderby
 
 package horse
 
@@ -11,6 +11,8 @@ class Horse(prob: Double) {
 
   def move(pos: Int, rng: RNG): (Int, RNG) = {
     val (newnumber, rngnext) = rng.nextInt
+
+    (7, rngnext)
 
   }
 
