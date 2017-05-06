@@ -37,7 +37,7 @@ object Derby {
     val distances = convertdistance(horses, currdist) // in case no currdist passed in, need to initialize to zero
     val (newdistances, rng2) = racestep(horses, rng, distances) 
     val winnerlist =  checkforwinner(newdistances, finishdist) 
-    if (winnerlist.length == 0) (winnerlist, rng2)
+    if (winnerlist.length != 0) (winnerlist, rng2)
     else race(horses, finishdist, rng2, newdistances)
 
   }
