@@ -26,7 +26,7 @@ object Derby {
   }
 
 
-  def convertdistance(horses: List[Horse], dist: List[Int]): List[Int] = {
+  def fillzeroes(horses: List[Horse], dist: List[Int]): List[Int] = {
     if (dist.length != 0) dist    // in case no currdist passed in, need to initialize to zero
     else List.fill(horses.length)(0)
   }
@@ -34,12 +34,31 @@ object Derby {
 
   def race(horses: List[Horse], finishdist: Int, rng: RNG, currdist: List[Int] = List()): (List[Int], RNG) = {
 
-    val distances = convertdistance(horses, currdist) // in case no currdist passed in, need to initialize to zero
+    val distances = fillzeroes(horses, currdist) // in case no currdist passed in, need to initialize to zero
     val (newdistances, rng2) = racestep(horses, rng, distances) 
     val winnerlist =  checkforwinner(newdistances, finishdist) 
     if (winnerlist.length != 0) (winnerlist, rng2)
     else race(horses, finishdist, rng2, newdistances)
 
+  }
+
+  def incrementwinlist(wins: List[Int], newwinners: List[Int]): List[Int] = {
+    if (newwinners.length == 0) wins
+    else {
+      val newwins = wins.updated(newwinners.head, wins(newwinners.head + 1))
+      incrementwinlist(newwins, newwinners.tail)
+    }
+  }
+
+  def runraces(horses: List[Horse], finishdist: Int, rng: RNG, n: Int, win: List[Int]): List[Int] = {
+    
+    if (n == 0) win
+    else {
+      val winners = fillzeroes(horses, win)
+      val (roundwinners, rng2) = race(horses, finishdist, rng)
+      val newwinlist = incrementwinlist(winners, roundwinners)
+      runraces(horses, finishdist, rng2, n-1, newwinlist)
+    }
   }
 
 
