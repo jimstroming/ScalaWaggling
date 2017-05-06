@@ -27,20 +27,20 @@ object Derby {
 
 
   def convertdistance(horses: List[Horse], dist: List[Int]): List[Int] = {
-    if (dist.length != 0) dist
+    if (dist.length != 0) dist    // in case no currdist passed in, need to initialize to zero
     else List.fill(horses.length)(0)
   }
 
 
-  def race(horses: List[Horse], finishdist: Int, rng: RNG, currdist: List[Int] ): (List[Int], RNG) = {
+  def race(horses: List[Horse], finishdist: Int, rng: RNG, currdist: List[Int] = List()): (List[Int], RNG) = {
 
     val distances = convertdistance(horses, currdist) // in case no currdist passed in, need to initialize to zero
     val (newdistances, rng2) = racestep(horses, rng, distances) 
-
-    (List(1,2,3), rng)
+    val winnerlist =  checkforwinner(newdistances, finishdist) 
+    if (winnerlist.length == 0) (winnerlist, rng2)
+    else race(horses, finishdist, rng2, newdistances)
 
   }
-
 
 }
 
