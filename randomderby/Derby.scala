@@ -50,9 +50,9 @@ object Derby {
     }
   }
 
-  def runraces(horses: List[Horse], finishdist: Int, rng: RNG, n: Int, win: List[Int]): List[Int] = {
+  def runraces(horses: List[Horse], finishdist: Int, rng: RNG, n: Int, win: List[Int] = List()): (List[Int], RNG) = {
     
-    if (n == 0) win
+    if (n == 0) (win, rng)
     else {
       val winners = fillzeroes(horses, win)
       val (roundwinners, rng2) = race(horses, finishdist, rng)
@@ -65,7 +65,8 @@ object Derby {
   def main(args: Array[String]): Unit = {
     
     val horses = List(new Horse(0.2), new Horse(0.9))
-    val (winners, newrng) = race(horses, 2000, SimpleRNG(60))
+    // val (winners, newrng) = race(horses, 2000, SimpleRNG(60))
+    val (winners, newrng) = runraces(horses, 2000, SimpleRNG(60), 1000)
     println(winners)
 
   }
