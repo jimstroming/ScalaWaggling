@@ -8,7 +8,7 @@ import horse.Horse
 
 object Derby {
   
-  def racestep(horses: List[Horse], rng: RNG, olddist: List[Int], newdist: List[Int]): (List[Int], RNG) = {
+  def racestep(horses: List[Horse], rng: RNG, olddist: List[Int], newdist: List[Int] = List()): (List[Int], RNG) = {
 
     if (horses.length == 0) return (newdist, rng)
     else {
@@ -26,7 +26,16 @@ object Derby {
   }
 
 
+  def convertdistance(horses: List[Horse], dist: List[Int]): List[Int] = {
+    if (dist.length != 0) dist
+    else List.fill(horses.length)(0)
+  }
+
+
   def race(horses: List[Horse], finishdist: Int, rng: RNG, currdist: List[Int] ): (List[Int], RNG) = {
+
+    val distances = convertdistance(horses, currdist) // in case no currdist passed in, need to initialize to zero
+    val (newdistances, rng2) = racestep(horses, rng, distances) 
 
     (List(1,2,3), rng)
 
